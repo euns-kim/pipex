@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_test.c                                        :+:      :+:    :+:   */
+/*   execve_test.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/29 18:15:00 by eunskim           #+#    #+#             */
-/*   Updated: 2023/03/30 17:04:02 by eunskim          ###   ########.fr       */
+/*   Created: 2023/03/30 16:30:54 by eunskim           #+#    #+#             */
+/*   Updated: 2023/03/30 17:05:52 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <unistd.h>
-#include <errno.h>
+#include <stdio.h>
 
-int	main(int argc, char *argv[])
+extern char **environ;
+
+int	main(void)
 {
-	// char *arr[] = {"ping", "google.com", NULL};
-	// execvp("ping", arr);
-	execvp("id", (char *[3]) {"id", "eunskim", 0});
-	int err = errno;
-	printf("exec failed");
-	return (0);
+	char	*path = "/bin/ls";
+	// char	*path = "/usr/bin/env";
+	char	*cmd[5];
+
+	cmd[0] = "asdfasdf";
+	cmd[1] = "-a";
+    cmd[2] = "-l";
+	cmd[3] = NULL;
+	if (execve(path, cmd, environ) < 0)
+		perror(NULL);
+	// if (execve(path, cmd, NULL) < 0)
+	// 	perror(NULL);
+	// if (execve(path, NULL, environ) < 0)
+	// 	perror(NULL);
+	printf("if failed, this will be printed\n");
 }

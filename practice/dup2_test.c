@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_test.c                                        :+:      :+:    :+:   */
+/*   dup2_test.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/29 18:15:00 by eunskim           #+#    #+#             */
-/*   Updated: 2023/03/30 17:04:02 by eunskim          ###   ########.fr       */
+/*   Created: 2023/03/30 16:26:10 by eunskim           #+#    #+#             */
+/*   Updated: 2023/03/30 16:26:12 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <unistd.h>
-#include <errno.h>
+#include <stdio.h>
+#include <fcntl.h>
 
-int	main(int argc, char *argv[])
+int	main(void)
 {
-	// char *arr[] = {"ping", "google.com", NULL};
-	// execvp("ping", arr);
-	execvp("id", (char *[3]) {"id", "eunskim", 0});
-	int err = errno;
-	printf("exec failed");
+	int	fd = open("newfile", O_RDWR | O_CREAT, 0644);
+	printf("printf before dup2\n");
+	dup2(fd, STDOUT_FILENO);
+	printf("printf after dup2\n");
+	close(fd);
 	return (0);
 }

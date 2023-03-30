@@ -1,25 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_test.c                                        :+:      :+:    :+:   */
+/*   waitpid_test.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/29 18:15:00 by eunskim           #+#    #+#             */
-/*   Updated: 2023/03/30 17:04:02 by eunskim          ###   ########.fr       */
+/*   Created: 2023/03/30 16:08:47 by eunskim           #+#    #+#             */
+/*   Updated: 2023/03/30 16:13:36 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <sys/wait.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <errno.h>
 
-int	main(int argc, char *argv[])
+int	main(void)
 {
-	// char *arr[] = {"ping", "google.com", NULL};
-	// execvp("ping", arr);
-	execvp("id", (char *[3]) {"id", "eunskim", 0});
-	int err = errno;
-	printf("exec failed");
+	pid_t	pid;
+	pid_t	ret;
+
+	pid = fork();
+	int	state = 0;
+	if (pid == 0)
+	{
+		sleep(1);
+    	ret = waitpid(-1, &state, 0);
+    	perror("child");
+		printf("this is child\n");
+	}
+	else
+	{
+		ret = waitpid(pid, &state, 0);
+		perror("parent");
+	    printf("child pid: %d\n", ret);
+		printf("this is parent\n");
+	}
 	return (0);
 }

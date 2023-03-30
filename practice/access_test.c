@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_test.c                                        :+:      :+:    :+:   */
+/*   access_test.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/29 18:15:00 by eunskim           #+#    #+#             */
-/*   Updated: 2023/03/30 17:04:02 by eunskim          ###   ########.fr       */
+/*   Created: 2023/03/30 17:14:51 by eunskim           #+#    #+#             */
+/*   Updated: 2023/03/30 17:15:30 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <unistd.h>
-#include <errno.h>
+#include <stdio.h>
 
-int	main(int argc, char *argv[])
+int  main(void)
 {
-	// char *arr[] = {"ping", "google.com", NULL};
-	// execvp("ping", arr);
-	execvp("id", (char *[3]) {"id", "eunskim", 0});
-	int err = errno;
-	printf("exec failed");
-	return (0);
+	if (access("test.txt", F_OK | R_OK) < 0)
+	{
+			perror(NULL); //perror는 현재 errno에 해당하는 시스템 에러 메세지를 stderr로 출력
+			return (1);
+	}
+	else
+	{
+			printf("can read file\n");
+			return (0);
+	}
 }
