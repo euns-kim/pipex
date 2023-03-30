@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 14:39:28 by eunskim           #+#    #+#             */
-/*   Updated: 2023/03/30 15:56:39 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/03/30 22:02:28 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,20 @@
 // 	  // perror("ERROR");
 // 	  // perror("Can not open the said file.");
 //    }
+// }
+
+// int main(void)
+// {
+// 	int i;
+
+// 	i = 0;
+// 	while (i < 127)
+// 	{
+// 		errno = i;
+// 		perror("pipex");
+// 		i++;
+// 	}
+// 	return (0);
 // }
 
 int	main(void)
