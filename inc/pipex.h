@@ -6,13 +6,20 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 20:31:10 by eunskim           #+#    #+#             */
-/*   Updated: 2023/03/30 22:02:46 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/04 20:15:39 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-ERROR CODE
+#ifndef PIPEX_H
+# define PIPEX_H
 
-1 : invalid argument
-2 : pipe failed (with perror)
-3 : first call of fork failed (with perror)
-4 : second call of fork faild (with perror)
+# include <unistd.h>
+# include <sys/wait.h>
+# include <errno.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include "libft.h"
+# include "get_next_line.h"
+
+#endif
