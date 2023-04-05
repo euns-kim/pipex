@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 18:30:37 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/05 21:01:17 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/05 21:52:13 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,54 +19,35 @@
 // By overwriting it will not change the permission.
 // When needed permission is not given, an error message will be printed.
 
-void	second_child_process(char *outfile, char *cmd2, char **envp, t_data *pipex)
+int	execute(char *cmd, char **env)
+{
+	char	**cmd_args = get_cmd_args(cmd);
+	char	*path = get_path(cmd_args[0], env);
+	return (execve(path, cmd_args, env));
+}
+
+int	second_child_process(char *outfile, char *cmd2, char **env, t_data *pipex)
 {
 	pipex->outfile_fd = open(outfile, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (pipex->outfile_fd == -1)
-		error("File open error");
-	if (close(pipex->pipe_fds[1]) == -1)
-		error("Closing pipe end failed");
+		error_exit("File open error");
 	dup2(pipex->pipe_fds[0], STDIN_FILENO);
+	close_pipe_fds(pipex);
+	dup2(pipex->outfile_fd, STDOUT_FILENO);
+	close(pipex->outfile_fd);
+	return (execute(cmd2, env));
 }
 
-int	first_child_process(char *infile, char *cmd1, char **envp, t_data *pipex)
+int	first_child_process(char *infile, char *cmd1, char **env, t_data *pipex)
 {
 	pipex->infile_fd = open(infile, O_RDONLY);
 	if (pipex->infile_fd == -1)
-	{
-		perror("File open error");
-		return (1);
-	}
-	if (close(pipex->pipe_fds[0]) == -1)
-	{
-		perror("Closing pipe end failed");
-		return (1);
-	}
+		error_return("File open error");
 	dup2(pipex->pipe_fds[1], STDOUT_FILENO);
-}
-
-void	wait_and_error_exit(t_data pipex)
-{
-	int	wstatus1;
-	int	wstatus2;
-	int	status_code;
-
-	waitpid(pipex.ret_pid1, &(wstatus1), 0);
-	waitpid(pipex.ret_pid2, &(wstatus2), 0);
-	if (WIFEXITED(wstatus2))
-		status_code = WEXITSTATUS(wstatus2);
-	if (status_code != 0)
-	{
-		errno = status_code;
-		error(NULL);
-	}
-	return ;
-}
-
-void	error(char *err_msg)
-{
-	perror(err_msg);
-	exit(EXIT_FAILURE);
+	close_fds(pipex);
+	dup2(pipex->infile_fd, STDIN_FILENO);
+	close(pipex->infile_fd);
+	return (execute(cmd1, env));
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -79,19 +60,18 @@ int	main(int argc, char **argv, char **envp)
 		exit(EXIT_FAILURE);
 	}
 	if (pipe(pipex.pipe_fds) == -1)
-		error("Pipe function failed");
+		error_exit("Pipe function failed");
 	pipex.ret_pid1 = fork();
 	if (pipex.ret_pid1 == -1)
-		error("Failed to create first child process");
+		error_exit("Failed to create first child process");
 	if (pipex.ret_pid1 == 0)
 		first_child_process(argv[1], argv[2], envp, &pipex);
 	pipex.ret_pid2 = fork();
 	if (pipex.ret_pid2 == -1)
-		error("Failed to create second child process");
+		error_exit("Failed to create second child process");
 	if (pipex.ret_pid2 == 0)
 		second_child_process(argv[4], argv[3], envp, &pipex);
-	if (close(pipex.pipe_fds[0]) == -1 || close(pipex.pipe_fds[1] == -1))
-		error("Closing pipe end failed");
+	close_pipe_fds(&pipex);
 	wait_and_error_exit(pipex);
 	exit(EXIT_SUCCESS);
 }

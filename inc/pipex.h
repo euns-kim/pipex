@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 20:31:10 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/05 20:24:20 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/05 21:57:22 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,17 @@ typedef struct s_data
 	pid_t	ret_pid1;
 	pid_t	ret_pid2;
 }	t_data;
+
+
+int		main(int argc, char **argv, char **envp);
+int		first_child_process(char *infile, char *cmd1, char **env, t_data *pipex);
+int		second_child_process(char *outfile, char *cmd2, char **env, t_data *pipex);
+int		execute(char *cmd, char **env);
+
+void	close_pipe_fds(t_data *pipex);
+
+void	wait_and_error_exit(t_data pipex);
+void	error_exit(char *err_msg);
+int		error_return(char *err_msg);
 
 #endif

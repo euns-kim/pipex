@@ -6,7 +6,7 @@
 #    By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 19:20:31 by eunskim           #+#    #+#              #
-#    Updated: 2023/04/04 19:54:25 by eunskim          ###   ########.fr        #
+#    Updated: 2023/04/05 21:56:43 by eunskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,9 @@ HEADERS	:= -I $(LIBFT) -I $(LIBGNL) -I $(INC_DIR)
 
 SRC_DIR	:= src
 SRCS	:= $(addprefix $(SRC_DIR)/, \
-			example.c \
-			example_2.c)
+			pipex.c \
+			pipex_utils.c \
+			pipex_error.c)
 OBJS	:= $(SRCS:.c=.o)
 
 #//= Make Rules =//#
