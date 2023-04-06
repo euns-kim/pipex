@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:51:44 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/06 20:59:47 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/06 21:16:43 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,13 @@ char	**get_path_and_split(char **env, t_data *pipex)
 	if (path_splitted == NULL)
 		error_exit("Failed to split path", pipex);
 	return (path_splitted);
+}
+
+void	initialize_pipex(t_data *pipex)
+{
+	pipex->path_splitted = NULL;
+	pipex->cmd_args1 = NULL;
+	pipex->cmd_args2 = NULL;
+	pipex->cmd_path1 = NULL;
+	pipex->cmd_path2 = NULL;
 }

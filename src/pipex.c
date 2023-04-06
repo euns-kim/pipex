@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 18:30:37 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/06 21:04:23 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/06 21:16:56 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	main(int argc, char **argv, char **envp)
 		Usage: ./pipex file1 cmd1 cmd2 file2", 2);
 		exit(EXIT_FAILURE);
 	}
+	initialize_pipex(&pipex);
 	pipex.path_splitted = get_path_and_split(envp, &pipex);
 	if (pipe(pipex.pipe_fds) == -1)
 		error_exit("Pipe function failed", &pipex);

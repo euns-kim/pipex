@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 20:31:10 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/06 21:03:04 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/06 21:16:52 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	**get_path_and_split(char **env, t_data *pipex);
 char	**get_cmd_args(char *cmd, t_data *pipex);
 char	*get_cmd_path(char *cmd, char **path_splitted);
 void	close_pipe_fds(t_data *pipex);
+void	initialize_pipex(t_data *pipex);
 
 void	free_string(char *ptr);
 void	free_string_arr(char **arr);
