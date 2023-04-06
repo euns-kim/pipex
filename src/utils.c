@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:51:44 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/06 20:12:21 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/06 20:59:47 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ char	*get_cmd_path(char *cmd, char **path_splitted)
 		if (access(cmd_path, F_OK) == 0)
 			return (cmd_path);
 		free_string(cmd_path);
+		path_splitted++;
 	}
 	return (NULL);
 }

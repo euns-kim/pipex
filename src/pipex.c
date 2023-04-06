@@ -6,18 +6,11 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 18:30:37 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/06 20:43:58 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/06 21:04:23 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-// How the original shell commands "< file1 cmd1 | cmd2 > file2" works:
-// When file1 does not exists, first process will print an error message and close pipe_fds[1]
-// When file2 does not exists, it will create a new file named file2 with permission -rw-r--r-- (644)
-// When there is file2 already, it will overwrite the file and truncate the original content.
-// By overwriting it will not change the permission.
-// When needed permission is not given, an error message will be printed.
 
 int	second_child_process(char *outfile, char *cmd2, char **env, t_data *pipex)
 {
@@ -53,7 +46,8 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc != 5)
 	{
-		ft_putstr_fd("Invalid arguments. Usage: ./pipex file1 cmd1 cmd2 file2", 2);
+		ft_putstr_fd("Invalid arguments. \
+		Usage: ./pipex file1 cmd1 cmd2 file2", 2);
 		exit(EXIT_FAILURE);
 	}
 	pipex.path_splitted = get_path_and_split(envp, &pipex);

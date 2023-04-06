@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 20:31:10 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/06 20:10:40 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/06 21:03:04 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,10 @@ typedef struct s_data
 	char	*cmd_path2;
 }	t_data;
 
-int		first_child_process(char *infile, char *cmd1, char **env, t_data *pipex);
-int		second_child_process(char *outfile, char *cmd2, char **env, t_data *pipex);
+int		first_child_process(char *infile, char *cmd1, \
+char **env, t_data *pipex);
+int		second_child_process(char *outfile, char *cmd2, \
+char **env, t_data *pipex);
 
 char	**get_path_and_split(char **env, t_data *pipex);
 char	**get_cmd_args(char *cmd, t_data *pipex);
