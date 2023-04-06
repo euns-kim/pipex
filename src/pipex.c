@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 18:30:37 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/06 20:11:08 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/06 20:43:58 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	second_child_process(char *outfile, char *cmd2, char **env, t_data *pipex)
 	close(pipex->outfile_fd);
 	pipex->cmd_args2 = get_cmd_args(cmd2, pipex);
 	pipex->cmd_path2 = get_cmd_path(pipex->cmd_args2[0], pipex->path_splitted);
-	return (execve(pipex->cmd_path2, pipex->cmd_args1, env));
+	return (execve(pipex->cmd_path2, pipex->cmd_args2, env));
 }
 
 int	first_child_process(char *infile, char *cmd1, char **env, t_data *pipex)
