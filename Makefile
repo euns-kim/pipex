@@ -6,7 +6,7 @@
 #    By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 19:20:31 by eunskim           #+#    #+#              #
-#    Updated: 2023/04/05 21:56:43 by eunskim          ###   ########.fr        #
+#    Updated: 2023/04/06 20:14:28 by eunskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,31 +27,27 @@ NAME 	:= pipex
 CFLAGS 	:= -fsanitize=address -g3 -Wextra -Wall -Werror
 
 LIBFT	:= lib/libft
-LIBGNL	:= lib/get_next_line
-LIB		:= $(LIBFT)/libft.a
-GNL		:= $(LIBGNL)/get_next_line.a
+LIBC	:= $(LIBFT)/libft.a
 
 INC_DIR	:= inc
-HEADERS	:= -I $(LIBFT) -I $(LIBGNL) -I $(INC_DIR)
+HEADERS	:= -I $(LIBFT) -I $(INC_DIR)
 
 SRC_DIR	:= src
 SRCS	:= $(addprefix $(SRC_DIR)/, \
 			pipex.c \
-			pipex_utils.c \
-			pipex_error.c)
+			utils.c \
+			free.c \
+			error.c)
 OBJS	:= $(SRCS:.c=.o)
 
 #//= Make Rules =//#
-all: libft libgnl $(NAME)
+all: libft $(NAME)
 
 libft:
 	@$(MAKE) -C $(LIBFT)
 
-libgnl:
-	@$(MAKE) -C $(LIBGNL)
-
 $(NAME): $(OBJS)
-	@$(CC) $(CFLAGS) $(HEADERS) $(OBJS) $(LIBC) $(GNL) -o $(NAME) && \
+	@$(CC) $(CFLAGS) $(HEADERS) $(OBJS) $(LIBC) -o $(NAME) && \
 	echo "$(YELLOW)$(BOLD)>> Mandatory part - pipex$(RESET)" && \
 	echo "$(BLUE)$(BOLD)Compilation successful!$(RESET)"
 
@@ -61,13 +57,11 @@ $(NAME): $(OBJS)
 clean:
 	@rm -f $(OBJS)
 	@$(MAKE) -C $(LIBFT) clean
-	@$(MAKE) -C $(LIBGNL) clean
 
 fclean: clean
 	@rm -f $(NAME)
 	@rm -f $(LIBC)
-	@rm -f $(GNL)
 
 re: fclean all
 
-.PHONY: all, clean, fclean, re, libft, libgnl
+.PHONY: all, clean, fclean, re, libft

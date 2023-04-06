@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 20:31:10 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/05 21:57:22 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/06 20:10:40 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include "libft.h"
-# include "get_next_line.h"
 
 typedef struct s_data
 {
@@ -29,18 +28,27 @@ typedef struct s_data
 	int		outfile_fd;
 	pid_t	ret_pid1;
 	pid_t	ret_pid2;
+	char	**path_splitted;
+	char	**cmd_args1;
+	char	**cmd_args2;
+	char	*cmd_path1;
+	char	*cmd_path2;
 }	t_data;
 
-
-int		main(int argc, char **argv, char **envp);
 int		first_child_process(char *infile, char *cmd1, char **env, t_data *pipex);
 int		second_child_process(char *outfile, char *cmd2, char **env, t_data *pipex);
-int		execute(char *cmd, char **env);
 
+char	**get_path_and_split(char **env, t_data *pipex);
+char	**get_cmd_args(char *cmd, t_data *pipex);
+char	*get_cmd_path(char *cmd, char **path_splitted);
 void	close_pipe_fds(t_data *pipex);
 
-void	wait_and_error_exit(t_data pipex);
-void	error_exit(char *err_msg);
+void	free_string(char *ptr);
+void	free_string_arr(char **arr);
+void	free_before_terminating(t_data *pipex);
+
 int		error_return(char *err_msg);
+void	error_exit(char *err_msg, t_data *pipex);
+void	wait_and_error_exit(t_data *pipex);
 
 #endif
