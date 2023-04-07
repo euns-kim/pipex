@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:51:44 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/07 18:28:05 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/07 20:41:23 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ char	*get_cmd_path(char *cmd, char **path_splitted)
 	char	*tmp;
 	char	*cmd_path;
 
+	if (ft_strnstr(cmd, "/", ft_strlen(cmd)) \
+	|| ft_strnstr(cmd, "which", ft_strlen(cmd)))
+		return (cmd);
 	while (*path_splitted)
 	{
 		tmp = ft_strjoin(*path_splitted, "/");
