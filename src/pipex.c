@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 18:30:37 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/06 21:16:56 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/07 18:55:56 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,27 @@
 
 int	second_child_process(char *outfile, char *cmd2, char **env, t_data *pipex)
 {
+	dup2(pipex->pipe_fds[0], STDIN_FILENO);
+	close_pipe_fds(pipex);
 	pipex->outfile_fd = open(outfile, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (pipex->outfile_fd == -1)
 		error_exit("File open error", pipex);
-	dup2(pipex->pipe_fds[0], STDIN_FILENO);
-	close_pipe_fds(pipex);
 	dup2(pipex->outfile_fd, STDOUT_FILENO);
 	close(pipex->outfile_fd);
 	pipex->cmd_args2 = get_cmd_args(cmd2, pipex);
 	pipex->cmd_path2 = get_cmd_path(pipex->cmd_args2[0], pipex->path_splitted);
-	return (execve(pipex->cmd_path2, pipex->cmd_args2, env));
+	execve(pipex->cmd_path2, pipex->cmd_args2, env);
+	error_exit("Failed to execute command", pipex);
+	return (1);
 }
 
 int	first_child_process(char *infile, char *cmd1, char **env, t_data *pipex)
 {
-	pipex->infile_fd = open(infile, O_RDONLY);
-	if (pipex->infile_fd == -1)
-		error_return("File open error");
 	dup2(pipex->pipe_fds[1], STDOUT_FILENO);
 	close_pipe_fds(pipex);
+	pipex->infile_fd = open(infile, O_RDONLY);
+	if (pipex->infile_fd == -1)
+		error_exit("File open error", pipex);
 	dup2(pipex->infile_fd, STDIN_FILENO);
 	close(pipex->infile_fd);
 	pipex->cmd_args1 = get_cmd_args(cmd1, pipex);
@@ -65,7 +67,7 @@ int	main(int argc, char **argv, char **envp)
 	if (pipex.ret_pid2 == 0)
 		second_child_process(argv[4], argv[3], envp, &pipex);
 	close_pipe_fds(&pipex);
-	wait_and_error_exit(&pipex);
+	wait_and_get_exit_code(&pipex);
 	free_before_terminating(&pipex);
-	exit(EXIT_SUCCESS);
+	return (pipex.exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 20:31:10 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/06 21:16:52 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/07 18:52:53 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_data
 	char	**cmd_args2;
 	char	*cmd_path1;
 	char	*cmd_path2;
+	int		exit_code;
 }	t_data;
 
 int		first_child_process(char *infile, char *cmd1, \
@@ -52,6 +53,6 @@ void	free_before_terminating(t_data *pipex);
 
 int		error_return(char *err_msg);
 void	error_exit(char *err_msg, t_data *pipex);
-void	wait_and_error_exit(t_data *pipex);
+void	wait_and_get_exit_code(t_data *pipex);
 
 #endif
