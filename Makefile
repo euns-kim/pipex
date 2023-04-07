@@ -6,7 +6,7 @@
 #    By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 19:20:31 by eunskim           #+#    #+#              #
-#    Updated: 2023/04/06 20:14:28 by eunskim          ###   ########.fr        #
+#    Updated: 2023/04/07 21:37:08 by eunskim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,8 +48,8 @@ libft:
 
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(HEADERS) $(OBJS) $(LIBC) -o $(NAME) && \
-	echo "$(YELLOW)$(BOLD)>> Mandatory part - pipex$(RESET)" && \
-	echo "$(BLUE)$(BOLD)Compilation successful!$(RESET)"
+	echo "$(WHITE)$(BOLD)>> Mandatory part - pipex$(RESET)" && \
+	echo "$(BLACK)$(BOLD)Compilation successful!$(RESET)"
 
 %.o: %.c
 	@$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@ 

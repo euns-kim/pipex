@@ -6,11 +6,17 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:13:55 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/06 21:12:52 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/07 20:54:12 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	close_pipe_fds(t_data *pipex)
+{
+	close(pipex->pipe_fds[0]);
+	close(pipex->pipe_fds[1]);
+}
 
 void	free_before_terminating(t_data *pipex)
 {
