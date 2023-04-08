@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 20:31:10 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/08 17:15:33 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/08 17:49:04 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	initialize_pipex(t_data *pipex);
 char	**get_path_and_split(char **env, t_data *pipex);
 char	**get_cmd_args(char *cmd, t_data *pipex);
 char	*get_cmd_path(char *cmd, char **path_splitted);
-char	**simple_double_quote_management(char *cmd);
 
 /* free.c */
 void	close_pipe_fds(t_data *pipex);
