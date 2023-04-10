@@ -6,16 +6,16 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:51:44 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/10 13:31:41 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/10 15:41:34 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 /* a function that joins each path string with '/' and command */
-/* to find the accessible one */
-/* when the path is already given by $which or '/', */
-/* this path will be forwarded */
+/* to find the accessible one to execute */
+/* when the path is already given by '$which' or '/', */
+/* this path will be forwarded instead*/
 char	*get_cmd_path(char *cmd, char **path_splitted)
 {
 	char	*tmp;
@@ -48,8 +48,8 @@ char	**get_cmd_args(char *cmd, t_data *pipex)
 	return (cmd_args);
 }
 
-/* a funtion that reads 'PATH' line from environment variable, */
-/* splits it into multiple paths and saves those in string array */
+/* a funtion that reads 'PATH' line from environment variables, */
+/* splits it into multiple paths and saves those in a string array */
 char	**get_path_and_split(char **env, t_data *pipex)
 {
 	char	**path_splitted;

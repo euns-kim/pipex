@@ -6,7 +6,7 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:13:55 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/10 13:33:18 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/10 15:36:04 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_before_terminating(t_data *pipex)
 	free_string(pipex->cmd_path2);
 }
 
-/* a funtion to free string array when there is one */
+/* a funtion to free an string array when there is one */
 void	free_string_arr(char **arr)
 {
 	size_t	i;
@@ -45,7 +45,7 @@ void	free_string_arr(char **arr)
 	free(arr);
 }
 
-/* a funtion to free char pointer when there is one */
+/* a funtion to free a char pointer when there is one */
 void	free_string(char *ptr)
 {
 	if (ptr)

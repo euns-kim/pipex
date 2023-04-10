@@ -6,14 +6,14 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:56:55 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/10 13:35:59 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/10 15:35:41 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 /* a function that waits for the sub-processes to end */
-/* and returns the exit status of the last process to main */
+/* and returns the exit status of the second process to main */
 void	wait_and_get_exit_code(t_data *pipex)
 {
 	int	wstatus1;
