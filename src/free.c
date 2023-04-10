@@ -6,18 +6,20 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 18:13:55 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/07 20:54:12 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/10 13:33:18 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+/* a function to close two pipe fds in one line */
 void	close_pipe_fds(t_data *pipex)
 {
 	close(pipex->pipe_fds[0]);
 	close(pipex->pipe_fds[1]);
 }
 
+/* a function to free every pointer before terminating the program */
 void	free_before_terminating(t_data *pipex)
 {
 	free_string_arr(pipex->path_splitted);
@@ -27,6 +29,7 @@ void	free_before_terminating(t_data *pipex)
 	free_string(pipex->cmd_path2);
 }
 
+/* a funtion to free string array when there is one */
 void	free_string_arr(char **arr)
 {
 	size_t	i;
@@ -42,6 +45,7 @@ void	free_string_arr(char **arr)
 	free(arr);
 }
 
+/* a funtion to free char pointer when there is one */
 void	free_string(char *ptr)
 {
 	if (ptr)

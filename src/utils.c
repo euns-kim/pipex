@@ -6,12 +6,16 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:51:44 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/08 17:47:53 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/10 13:31:41 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+/* a function that joins each path string with '/' and command */
+/* to find the accessible one */
+/* when the path is already given by $which or '/', */
+/* this path will be forwarded */
 char	*get_cmd_path(char *cmd, char **path_splitted)
 {
 	char	*tmp;
@@ -33,6 +37,7 @@ char	*get_cmd_path(char *cmd, char **path_splitted)
 	return (NULL);
 }
 
+/* a function that splits the command string given into several arguments */
 char	**get_cmd_args(char *cmd, t_data *pipex)
 {
 	char	**cmd_args;
@@ -43,6 +48,8 @@ char	**get_cmd_args(char *cmd, t_data *pipex)
 	return (cmd_args);
 }
 
+/* a funtion that reads 'PATH' line from environment variable, */
+/* splits it into multiple paths and saves those in string array */
 char	**get_path_and_split(char **env, t_data *pipex)
 {
 	char	**path_splitted;
@@ -57,6 +64,7 @@ char	**get_path_and_split(char **env, t_data *pipex)
 	return (path_splitted);
 }
 
+/* a function that initializes every pointer in the data struct to null */
 void	initialize_pipex(t_data *pipex)
 {
 	pipex->path_splitted = NULL;

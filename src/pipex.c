@@ -6,12 +6,14 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 18:30:37 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/08 16:41:31 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/10 13:21:01 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+/* second child process */
+/* which reads from stdin, executes command and writes to outfile */
 void	child_process_2(char *outfile, char *cmd2, char **env, t_data *pipex)
 {
 	dup2(pipex->pipe_fds[0], STDIN_FILENO);
@@ -32,6 +34,8 @@ void	child_process_2(char *outfile, char *cmd2, char **env, t_data *pipex)
 		error_exit("Failed to execute command", pipex);
 }
 
+/* first child process */
+/* which reads from infile, executes command and writes to stdout */
 void	child_process_1(char *infile, char *cmd1, char **env, t_data *pipex)
 {
 	dup2(pipex->pipe_fds[1], STDOUT_FILENO);
@@ -52,6 +56,9 @@ void	child_process_1(char *infile, char *cmd1, char **env, t_data *pipex)
 		error_exit("Failed to execute command", pipex);
 }
 
+/* main function where two sub-processe are created */
+/* using pipe and fork function  */
+/* it awaits exit status of the last process and returns it */
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	pipex;

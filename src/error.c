@@ -6,12 +6,14 @@
 /*   By: eunskim <eunskim@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:56:55 by eunskim           #+#    #+#             */
-/*   Updated: 2023/04/07 20:34:47 by eunskim          ###   ########.fr       */
+/*   Updated: 2023/04/10 13:35:59 by eunskim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+/* a function that waits for the sub-processes to end */
+/* and returns the exit status of the last process to main */
 void	wait_and_get_exit_code(t_data *pipex)
 {
 	int	wstatus1;
@@ -27,6 +29,8 @@ void	wait_and_get_exit_code(t_data *pipex)
 	}
 }
 
+/* a function that prints out an error message with perror, */
+/* frees everything and exits with errno */
 void	error_exit(char *err_msg, t_data *pipex)
 {
 	perror(err_msg);
